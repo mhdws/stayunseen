@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stay Unseen — watch stories and read messages without sending the signal</title>
+<meta name="description" content="Browser extension that holds back Instagram, Facebook and Messenger story views, read receipts and typing indicators before they leave your browser. No server, no account, nothing collected." />
+<meta name="theme-color" content="#191d25" />
+<link rel="canonical" href="http://mheadows.bond/stay-unseen/" />
+<meta property="og:title" content="Stay Unseen — look first, stay unseen" />
+<meta property="og:description" content="Holds back story views, read receipts and typing indicators on Instagram, Facebook and Messenger. Everything stays in your browser." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="http://mheadows.bond/stay-unseen/assets/01-overview-1280x800.jpg" />
+<meta property="og:url" content="http://mheadows.bond/stay-unseen/" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/png" href="assets/icon128.png" />
+<link rel="stylesheet" href="styles.css" />
+<!-- No web fonts: two Google families were two render-blocking requests for
+     type the system already has. -->
+<script>document.documentElement.className = "js";</script>
+<noscript><style>.js .reveal { opacity: 1; transform: none; }</style></noscript>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-in">
+    <a class="brand" href="#top">
+      <img src="assets/icon128.png" alt="" width="30" height="30" />
+      Stay Unseen
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#stops">What it stops</a>
+      <a href="#popup">The popup</a>
+      <a href="#demo">Try it</a>
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#install">Install</a>
+      <a href="#changelog">Changelog</a>
+    </nav>
+    <span class="badge">v1.1.0 · local only</span>
+  </div>
+  <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+</header>
+
+<main id="top">
+
+  <!-- hero -->
+  <section class="wrap hero">
+    <div>
+      <p class="status-pill"><span class="pill-dot" aria-hidden="true"></span>Active on Facebook + Instagram</p>
+
+      <h1>Look first.<span>Stay unseen.</span></h1>
+
+      <p class="lede">
+        Open a story, read a message, start typing a reply — Instagram, Facebook and
+        Messenger report all three back to the other person. Stay Unseen
+        <strong>holds those signals inside your browser</strong>, before they are sent.
+        Six blocking switches, a counter for everything it stopped, and no server
+        anywhere in the picture.
+      </p>
+
+      <div class="cta">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/stay-unseen-ig-fb-seen-bl/bfbajdhcgbnclhljgbcjficphhedlkje" rel="noopener"><img src="assets/Google_Chrome_icon_(February_2022).svg" alt="" width="18" height="18" /> Add to Chrome</a>
+        <a class="btn btn-primary" href="https://microsoftedge.microsoft.com/addons/detail/stay-unseen-ig-fb-see/fnlnnfoeafbpbjgkkiihhkfncjhombai" rel="noopener"><img src="assets/microsoft_edge-icon.svg" alt="" width="18" height="18" /> Add to Edge</a>
+        <a class="btn" href="https://addons.mozilla.org/en-US/firefox/addon/stay-unseen-ig-fb-seen-blocker/" rel="noopener"><img src="assets/firefox-browser-icon.svg" alt="" width="18" height="18" /> Add to Firefox</a>
+      </div>
+
+      <ul class="stats">
+        <li><b data-count="3">3</b><span>sites covered</span></li>
+        <li><b data-count="6">6</b><span>independent switches</span></li>
+        <li><b data-count="0">0</b><span>servers involved</span></li>
+        <li><b data-count="1">1</b><span>popup, no settings page</span></li>
+      </ul>
+    </div>
+
+    <figure class="hero-shot">
+      <!-- WebP first: 46 KB against 117 KB for the same pixels, and this is the
+           one image above the fold on a phone. -->
+      <picture>
+        <source srcset="assets/popup-current.webp" type="image/webp" />
+        <img src="assets/popup-current.png" width="356" height="593" decoding="async"
+             alt="The Stay Unseen popup: a status line reading Active on Facebook + Instagram, 847 blocked in total with the last block 2 minutes ago, three counters for story views, read receipts and typing indicators, and seven switches grouped under Instagram, Facebook &amp; Messenger and Display." />
+      </picture>
+      <figcaption>The whole extension: one panel, seven switches, nothing to configure.</figcaption>
+    </figure>
+  </section>
+
+  <!-- what it stops -->
+  <section class="wrap section" id="stops">
+    <div class="sec-head reveal">
+      <p class="kicker">Three signals</p>
+      <h2>What actually gets <em>held back</em></h2>
+      <p class="sec-lede">
+        Each one is a separate request the site makes on your behalf, and each has its
+        own switch. Turn one off and that site behaves normally again, immediately.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card reveal">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M1.6 12S5.4 5 12 5s10.4 7 10.4 7-3.8 7-10.4 7S1.6 12 1.6 12Z"/><path d="M3 21 21 3"/></svg>
+        </div>
+        <h3>Story and reel views</h3>
+        <p>
+          The write that puts your name in the viewer list is dropped. The story still
+          opens and still plays. Your name just never arrives.
+        </p>
+        <div class="tags"><span class="tag">Instagram stories</span><span class="tag">Facebook stories</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 6.5h18v11H3z"/><path d="M3 7l9 6.5L21 7"/><path d="M3 21 21 3"/></svg>
+        </div>
+        <h3>Message read receipts</h3>
+        <p>
+          Read your DMs without their message flipping to “Seen”. The mark-as-read call
+          never leaves — and replying still works normally, because a message you chose
+          to send is not a receipt.
+        </p>
+        <div class="tags"><span class="tag">Instagram DMs</span><span class="tag">Facebook</span><span class="tag">Messenger</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 4.5h16v11H9l-5 4.5z"/><circle cx="9" cy="10" r="1"/><circle cx="12.5" cy="10" r="1"/><circle cx="16" cy="10" r="1"/></svg>
+        </div>
+        <h3>Typing indicators</h3>
+        <p>
+          Write, rewrite and delete a reply without the bubbling dots appearing on their
+          screen. These go out over websockets as often as plain requests, so both paths
+          are covered.
+        </p>
+        <div class="tags"><span class="tag">Instagram typing</span><span class="tag">Messenger typing</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- with / without -->
+  <section class="wrap section">
+    <div class="sec-head reveal">
+      <p class="kicker">The difference</p>
+      <h2>What the other person <em>sees</em></h2>
+      <p class="sec-lede">
+        Your side of the app does not change at all. Theirs stops filling in.
+      </p>
+    </div>
+
+    <div class="compare reveal">
+      <div>
+        <h3>Normally <span class="side">extension off</span></h3>
+        <ul>
+          <li>Your name appears in their story viewer list</li>
+          <li>Their message turns to “Seen 14:02”</li>
+          <li>Typing dots appear the moment you start</li>
+          <li>The unread dot clears the second you open the thread</li>
+        </ul>
+      </div>
+      <div class="is-on">
+        <h3>With Stay Unseen <span class="side">extension on</span></h3>
+        <ul>
+          <li>The viewer list never lists you</li>
+          <li>Their message stays delivered, not seen</li>
+          <li>No typing dots, however long you spend on the reply</li>
+          <li>Optionally the unread dot stays for you too, so you can find it again</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- interactive demo -->
+  <section class="wrap section" id="demo">
+    <div class="sec-head reveal">
+      <p class="kicker">Interactive</p>
+      <h2>Flip the switches <em>yourself</em></h2>
+      <p class="sec-lede">
+        Both demos are live. Flip a switch and the other person's side empties out or
+        fills back in — exactly like the real extension.
+      </p>
+    </div>
+
+    <div class="demo-grid reveal">
+      <div class="demo">
+        <input type="checkbox" id="demoSwitch" checked />
+        <div class="demo-top">
+          <span class="demo-name">Read receipts &amp; typing</span>
+          <label class="demo-toggle" for="demoSwitch">
+            <span class="track"><span class="knob"></span></span>
+            <span class="demo-state demo-on">On</span>
+            <span class="demo-state demo-off">Off</span>
+          </label>
+        </div>
+
+        <div class="demo-chat" aria-hidden="true">
+          <div class="demo-side them">
+            <div class="bubble">hey! finally home 😮‍💨</div>
+            <div class="bubble">did you see my story? the beach was unreal</div>
+            <div class="bubble">and read this? 👀 tell me you're coming saturday</div>
+            <div class="receipt receipt-seen">Seen 14:02</div>
+            <div class="receipt receipt-delivered">Delivered</div>
+          </div>
+          <div class="demo-side me">
+            <div class="typing"><i></i><i></i><i></i></div>
+            <div class="typing-hint hint-typing">they see you typing…</div>
+            <div class="typing-hint hint-hidden">they see nothing</div>
+          </div>
+        </div>
+
+        <p class="demo-caption">
+          On: the receipt stays <b>Delivered</b> and the typing dots never reach them.
+          Off: it behaves like a stock browser.
+        </p>
+      </div>
+
+      <div class="demo">
+        <input type="checkbox" id="storySwitch" checked />
+        <div class="demo-top">
+          <span class="demo-name">Story views</span>
+          <label class="demo-toggle" for="storySwitch">
+            <span class="track"><span class="knob"></span></span>
+            <span class="demo-state demo-on">On</span>
+            <span class="demo-state demo-off">Off</span>
+          </label>
+        </div>
+
+        <div class="demo-story" aria-hidden="true">
+          <div class="story-segs"><i class="seg on"></i><i class="seg"></i><i class="seg"></i></div>
+          <div class="story-head">
+            <span class="story-ring"><i>M</i></span>
+            <div class="story-who"><b>mia</b><span>2h ago</span></div>
+          </div>
+          <div class="story-canvas"><span>mia's story</span></div>
+          <div class="story-viewers">
+            <p class="viewers-title">Mia's viewer list <b class="count-on">213</b><b class="count-off">214</b></p>
+            <ul>
+              <li class="viewer-row you">
+                <span class="vav you">Y</span>
+                <div><b>You</b><span class="sub you-seen">Seen 2m ago</span><span class="sub you-unlisted">never listed</span></div>
+              </li>
+              <li class="viewer-row"><span class="vav a">K</span><div><b>karl</b><span class="sub">12m</span></div></li>
+              <li class="viewer-row"><span class="vav b">L</span><div><b>lena</b><span class="sub">1h</span></div></li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="demo-caption">
+          On: your view never arrives — not your name, not the time, and the count stays
+          one lower. Off: watching reports you like everyone else.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- popup / screenshots -->
+  <section class="wrap section" id="popup">
+    <div class="sec-head reveal">
+      <p class="kicker">The interface</p>
+      <h2>One panel, <em>no settings page</em></h2>
+      <p class="sec-lede">
+        Click the toolbar icon and this is everything: what it is protecting right now,
+        what it has stopped, and a switch for each signal. Counters are per feature, so
+        you can see which kind your own browsing actually produces.
+      </p>
+    </div>
+
+    <div class="shots reveal" id="shotShow">
+      <div class="shot-stage" role="region" id="shotStage" aria-roledescription="carousel" aria-label="Popup screenshots">
+
+        <figure class="shot" aria-roledescription="slide" aria-label="1 of 3">
+          <div class="shot-frame">
+            <div class="shot-bar"><i aria-hidden="true"></i><span>Overview</span><span class="shot-open">full size &#8599;</span></div>
+            <a href="assets/01-overview-1280x800.jpg" aria-label="Open the overview screenshot at full size">
+            <img src="assets/01-overview-1280x800.jpg"
+                 srcset="assets/01-overview-640x400.jpg 640w, assets/01-overview-1280x800.jpg 1280w"
+                 sizes="(max-width: 1080px) 100vw, 1000px"
+                 width="1280" height="800" loading="lazy" decoding="async"
+                 alt="Overview: the headline “Look without being seen” beside the popup, which shows 847 signals blocked in total, split into 331 story views, 402 read receipts and 114 typing indicators, with every switch on." />
+            </a>
+          </div>
+          <figcaption><b>The total, and where it came from.</b> Story views, read receipts and typing indicators are counted separately.</figcaption>
+        </figure>
+
+        <figure class="shot" aria-roledescription="slide" aria-label="2 of 3">
+          <div class="shot-frame">
+            <div class="shot-bar"><i aria-hidden="true"></i><span>Controls</span><span class="shot-open">full size &#8599;</span></div>
+            <a href="assets/02-controls-1280x800.jpg" aria-label="Open the controls screenshot at full size">
+            <img src="assets/02-controls-1280x800.jpg"
+                 srcset="assets/02-controls-640x400.jpg 640w, assets/02-controls-1280x800.jpg 1280w"
+                 sizes="(max-width: 1080px) 100vw, 1000px"
+                 width="1280" height="800" loading="lazy" decoding="async"
+                 alt="Controls: three Instagram switches, three Facebook and Messenger switches, and a Display section holding “Keep unread markers”, with notes explaining that off means off and that counters are kept per feature." />
+            </a>
+          </div>
+          <figcaption><b>Six independent switches, plus unread markers.</b> Nothing is bundled together, and turning one off restores that site's normal behaviour at once.</figcaption>
+        </figure>
+
+        <figure class="shot" aria-roledescription="slide" aria-label="3 of 3">
+          <div class="shot-frame">
+            <div class="shot-bar"><i aria-hidden="true"></i><span>How it works</span><span class="shot-open">full size &#8599;</span></div>
+            <a href="assets/03-how-it-works-1280x800.jpg" aria-label="Open the how-it-works screenshot at full size">
+            <img src="assets/03-how-it-works-1280x800.jpg"
+                 srcset="assets/03-how-it-works-640x400.jpg 640w, assets/03-how-it-works-1280x800.jpg 1280w"
+                 sizes="(max-width: 1080px) 100vw, 1000px"
+                 width="1280" height="800" loading="lazy" decoding="async"
+                 alt="How it works: three steps — you open a story or a DM, Stay Unseen drops the signal, nobody is told — over a panel listing what the site never receives and a panel confirming that everything stays local." />
+            </a>
+          </div>
+          <figcaption><b>The path a seen signal takes.</b> It is stopped on your machine, so there is nothing to recall later.</figcaption>
+        </figure>
+
+      </div>
+
+      <div class="shot-nav">
+        <button type="button" class="shot-btn" id="shotPrev" aria-label="Previous screenshot">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4.5 7.5 12l7.5 7.5"/></svg>
+        </button>
+        <div class="shot-dots">
+          <button type="button" class="shot-dot" aria-label="Show the overview screenshot"></button>
+          <button type="button" class="shot-dot" aria-label="Show the controls screenshot"></button>
+          <button type="button" class="shot-dot" aria-label="Show the how-it-works screenshot"></button>
+        </div>
+        <button type="button" class="shot-btn" id="shotNext" aria-label="Next screenshot">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4.5 16.5 12 9 19.5"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- how it works -->
+  <section class="wrap section" id="how">
+    <div class="sec-head reveal">
+      <p class="kicker">Mechanism</p>
+      <h2>Two layers, because <em>one is not enough</em></h2>
+      <p class="sec-lede">
+        Some signals go out as ordinary POSTs a network rule can cancel outright. Others
+        are GraphQL calls and websocket frames that share an address with the traffic
+        making the site work. So Stay Unseen works at both levels.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card reveal">
+        <p class="num">Layer 01</p>
+        <h3>The network rules</h3>
+        <p>
+          A fixed list of endpoint patterns, shipped inside the extension and handed to
+          the browser's own blocker — <code>declarativeNetRequest</code> on Chrome and
+          Edge, blocking <code>webRequest</code> on Firefox. Scoped to instagram.com,
+          facebook.com and messenger.com, and never fetched from anywhere.
+        </p>
+      </article>
+
+      <article class="card reveal">
+        <p class="num">Layer 02</p>
+        <h3>The page patch</h3>
+        <p>
+          At <code>document_start</code>, before the site's own code runs, Stay Unseen
+          wraps <code>fetch</code>, <code>XMLHttpRequest</code> and
+          <code>WebSocket.send</code>. Outgoing bodies are matched in memory against a
+          fixed pattern list; seen, read and typing writes are dropped and everything
+          else passes through untouched.
+        </p>
+      </article>
+
+      <article class="card reveal">
+        <p class="num">Layer 03</p>
+        <h3>Honest counting</h3>
+        <p>
+          Opening one story can trip half a dozen suppressions across both layers. The
+          counter folds signals for the same feature arriving within
+          <code>1500&nbsp;ms</code> into one block, so the number tracks what you did
+          rather than the site's internal retries.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- privacy -->
+  <section class="wrap section" id="privacy">
+    <div class="sec-head reveal">
+      <p class="kicker">Privacy</p>
+      <h2>There is <em>nowhere</em> for your data to go</h2>
+      <p class="sec-lede">
+        Stay Unseen has no server. Not an unused one, not a disabled one — there is no
+        backend in the project. Everything it knows lives in your browser's local
+        extension storage, and uninstalling it deletes all of it.
+      </p>
+    </div>
+
+    <div class="two-col">
+      <ul class="checks reveal">
+        <li><b>No account, email or sign-in.</b> Install it and it works.</li>
+        <li><b>No analytics or telemetry.</b> Nothing is counted anywhere but on your own machine.</li>
+        <li><b>No remote code.</b> Every script and every blocking pattern is inside the package you download.</li>
+        <li><b>No browsing history.</b> It can only run on instagram.com, facebook.com and messenger.com, and has no access at all to any other site.</li>
+        <li><b>Your messages are never stored.</b> Bodies are inspected in memory to make the block-or-allow decision, then forgotten.</li>
+        <li><b>Nothing is sold or shared,</b> because nothing is collected.</li>
+      </ul>
+
+      <div class="reveal">
+        <div class="table-wrap">
+          <table>
+            <caption>Kept on your device</caption>
+            <thead><tr><th scope="col">Stored</th><th scope="col">Why</th></tr></thead>
+            <tbody>
+              <tr><td>Seven on/off settings</td><td>So your switches survive a restart</td></tr>
+              <tr><td>A blocked count per feature</td><td>Powers the counters and the toolbar badge</td></tr>
+              <tr><td>A capped log of recent decisions, message text removed</td><td>So a signal that stops being blocked can be diagnosed</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="note">
+          <strong>Why it reads request bodies at all</strong>
+          <p>
+            On Instagram and Messenger, a read receipt and an ordinary message go to the
+            same address. Telling them apart means looking at the body. Before anything is
+            written to the local log, the fields holding text you typed are replaced with
+            <code>&lt;user_text&gt;</code> — which is also what stops a message containing
+            the word “typing” from being mistaken for a typing signal and dropped.
+          </p>
+        </div>
+
+        <p class="fineprint">Full detail in the <a href="privacy.html">privacy policy</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- limits -->
+  <section class="wrap section" id="limits">
+    <div class="sec-head reveal">
+      <p class="kicker">Limitations</p>
+      <h2>What it <em>cannot</em> do</h2>
+      <p class="sec-lede">Worth reading before you install, so none of it surprises you later.</p>
+    </div>
+
+    <ul class="checks is-limits reveal">
+      <li><b>Sending still notifies.</b> A message, reaction or story reply is something you chose to send — the other person is told.</li>
+      <li><b>Online status is untouched.</b> Stay Unseen does not hide your active or online indicator.</li>
+      <li><b>Activity from before you installed it cannot be withdrawn.</b> Views already reported stay reported.</li>
+      <li><b>Meta changes its internals.</b> When endpoint or module names move, a feature can stop blocking until the patterns are updated.</li>
+      <li><b>It is an independent project,</b> not affiliated with, endorsed by, or connected to Meta Platforms, Instagram, Facebook, or Microsoft.</li>
+    </ul>
+  </section>
+
+  <!-- install -->
+  <section class="wrap section" id="install">
+    <div class="sec-head reveal">
+      <p class="kicker">Install</p>
+      <h2>Running in <em>about a minute</em></h2>
+      <p class="sec-lede">
+        Version 1.1.0, published to each browser's own store and built against its own
+        manifest. Pick yours, add it, and it starts working on the next page load.
+      </p>
+    </div>
+
+    <div class="cta reveal">
+      <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/stay-unseen-ig-fb-seen-bl/bfbajdhcgbnclhljgbcjficphhedlkje" rel="noopener"><img src="assets/Google_Chrome_icon_(February_2022).svg" alt="" width="18" height="18" /> Chrome Web Store</a>
+      <a class="btn btn-primary" href="https://microsoftedge.microsoft.com/addons/detail/stay-unseen-ig-fb-see/fnlnnfoeafbpbjgkkiihhkfncjhombai" rel="noopener"><img src="assets/microsoft_edge-icon.svg" alt="" width="18" height="18" /> Edge Add-ons</a>
+      <a class="btn" href="https://addons.mozilla.org/en-US/firefox/addon/stay-unseen-ig-fb-seen-blocker/" rel="noopener"><img src="assets/firefox-browser-icon.svg" alt="" width="18" height="18" /> Firefox Add-ons</a>
+    </div>
+
+    <ol class="steps reveal">
+      <li><b>Open the listing</b> for your browser. The Chrome one also works in Brave, Vivaldi and Opera.</li>
+      <li><b>Add it,</b> then confirm the permission prompt — instagram.com, facebook.com and messenger.com, and nothing else.</li>
+      <li><b>Pin the icon</b> so the counters and switches are one click away. Chrome and Edge hide new extensions behind the puzzle-piece button.</li>
+      <li><b>Reload any Instagram, Facebook or Messenger tab</b> you already had open. The page patch installs at document start, so tabs opened before the install are not protected until they reload.</li>
+      <li><b>Click the icon.</b> Everything starts switched on, and the status line names what is being protected right now.</li>
+    </ol>
+
+    <p class="fineprint">
+      Updates arrive through the store automatically. Every switch is on by default;
+      <b>Reset counters</b> at the bottom of the popup clears the numbers without
+      changing what is blocked.
+    </p>
+  </section>
+
+  <!-- changelog -->
+  <section class="wrap section" id="changelog">
+    <div class="sec-head reveal">
+      <p class="kicker">Changelog</p>
+      <h2>What's new in <em>1.1.0</em></h2>
+      <p class="sec-lede">Version 1.1.0 rebuilt the chat experience end to end. The short version:</p>
+    </div>
+
+    <div class="reveal">
+      <h3 class="cl-group">New</h3>
+      <ul class="cl-list">
+        <li>Fresh new popup design with live counters for everything blocked.</li>
+        <li>Status now shows where you're protected: <b>“Active on Facebook”</b>, <b>“Active on Instagram”</b>, or both.</li>
+        <li><b>Rate Stay Unseen</b> link that opens your store's review page.</li>
+      </ul>
+
+      <h3 class="cl-group">Fixed</h3>
+      <ul class="cl-list">
+        <li>Chats now load reliably on Facebook and Messenger — no more <b>“Couldn't load chats”</b> errors.</li>
+        <li>Group chat messages no longer get stuck on <b>“Sending”</b>.</li>
+        <li>Opening a group chat no longer marks it as read for others — unread badges stay for group and personal chats alike.</li>
+        <li>Instagram: sender names stay bold after you read a DM, and the unread marker appears right away without reloading the page.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-in">
+    <span>Stay Unseen v1.1.0 · no server · no analytics · nothing leaves your browser</span>
+    <span><a href="privacy.html">Privacy policy</a> · Independent project, not affiliated with Meta Platforms, Instagram, Facebook, or Microsoft</span>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
