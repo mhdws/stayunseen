@@ -92,6 +92,37 @@
     for (var k = 0; k < stats.length; k++) statObs.observe(stats[k]);
   }
 
+  /* --- header scrolled state --------------------------------------------------
+     Past a few pixels of scroll the header gains its depth shadow -- one
+     class flip on a threshold, no per-frame styling. Runs regardless of the
+     reduced-motion setting (it is a state, not an animation), coalesced into
+     the same single rAF the progress bar uses. */
+
+  var header = document.querySelector(".site-header");
+  if (header) {
+    var scrolled = false;
+    var scrollPending = false;
+    function applyScrolled() {
+      scrollPending = false;
+      var now = window.scrollY > 8;
+      if (now !== scrolled) {
+        scrolled = now;
+        header.classList.toggle("is-scrolled", scrolled);
+      }
+    }
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (!scrollPending) {
+          scrollPending = true;
+          requestAnimationFrame(applyScrolled);
+        }
+      },
+      { passive: true }
+    );
+    applyScrolled();
+  }
+
   /* --- header progress bar --------------------------------------------------
      A 2px strip scaled along X. One passive scroll listener, coalesced into a
      single rAF: the scroll handler only sets a flag, the transform happens
@@ -208,6 +239,57 @@
         inView = true;
         run();
       }
+    }
+  }
+
+  /* --- nav scrollspy ---------------------------------------------------------
+     Highlights the section you are actually in. One IntersectionObserver, no
+     scroll listener: the callback fires on section boundaries only, and it
+     toggles a class that drives a transform-only underline. In the hero (above
+     the first section) nothing is active. */
+
+  var navLinks = document.querySelectorAll(".nav a");
+
+  if (navLinks.length && "IntersectionObserver" in window) {
+    var linkById = {};
+    var activeId = null;
+    for (var i = 0; i < navLinks.length; i++) {
+      var href = navLinks[i].getAttribute("href") || "";
+      if (href.charAt(0) === "#") linkById[href.slice(1)] = navLinks[i];
+    }
+
+    var setActive = function (id) {
+      if (activeId === id) return;
+      activeId = id;
+      for (var j = 0; j < navLinks.length; j++) {
+        navLinks[j].classList.remove("active");
+      }
+      if (id && linkById[id]) linkById[id].classList.add("active");
+    };
+
+    var spy = new IntersectionObserver(
+      function (entries) {
+        var hit = null;
+        for (var k = 0; k < entries.length; k++) {
+          if (entries[k].isIntersecting) hit = entries[k].target.id;
+        }
+        if (hit) setActive(hit);
+      },
+      { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
+    );
+
+    var sections = document.querySelectorAll("main section[id]");
+    for (var s = 0; s < sections.length; s++) spy.observe(sections[s]);
+
+    var hero = document.querySelector(".hero");
+    if (hero) {
+      var heroObs = new IntersectionObserver(
+        function (entries) {
+          if (entries[0].isIntersecting) setActive(null);
+        },
+        { threshold: 0.25 }
+      );
+      heroObs.observe(hero);
     }
   }
 })();

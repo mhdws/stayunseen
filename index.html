@@ -6,12 +6,12 @@
 <title>Stay Unseen — watch stories and read messages without sending the signal</title>
 <meta name="description" content="Browser extension that holds back Instagram, Facebook and Messenger story views, read receipts and typing indicators before they leave your browser. No server, no account, nothing collected." />
 <meta name="theme-color" content="#191d25" />
-<link rel="canonical" href="https://stayunseen.bond/" />
+<link rel="canonical" href="http://mheadows.bond/stay-unseen/" />
 <meta property="og:title" content="Stay Unseen — look first, stay unseen" />
 <meta property="og:description" content="Holds back story views, read receipts and typing indicators on Instagram, Facebook and Messenger. Everything stays in your browser." />
 <meta property="og:type" content="website" />
-<meta property="og:image" content="https://stayunseen.bond/assets/01-overview-1280x800.jpg" />
-<meta property="og:url" content="https://stayunseen.bond/" />
+<meta property="og:image" content="http://mheadows.bond/stay-unseen/assets/01-overview-1280x800.jpg" />
+<meta property="og:url" content="http://mheadows.bond/stay-unseen/" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" type="image/png" href="assets/icon128.png" />
 <link rel="stylesheet" href="styles.css" />
@@ -25,21 +25,21 @@
 <header class="site-header">
   <div class="header-in">
     <a class="brand" href="#top">
-      <img src="assets/icon128.png" alt="" width="30" height="30" />
-      Stay Unseen
+      <span class="brand-ring"><img src="assets/icon128.png" alt="" width="30" height="30" /></span>
+      Stay <em>Unseen</em>
     </a>
     <nav class="nav" aria-label="Sections">
       <a href="#stops">What it stops</a>
-      <a href="#popup">The popup</a>
       <a href="#demo">Try it</a>
+      <a href="#popup">The popup</a>
       <a href="#how">How it works</a>
       <a href="#privacy">Privacy</a>
       <a href="#install">Install</a>
       <a href="#changelog">Changelog</a>
     </nav>
-    <span class="badge">v1.1.0 · local only</span>
+    <span class="badge"><i class="hdot" aria-hidden="true"></i>v1.1.0 · local only</span>
+    <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
   </div>
-  <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
 </header>
 
 <main id="top">
@@ -498,6 +498,8 @@
         <li>Group chat messages no longer get stuck on <b>“Sending”</b>.</li>
         <li>Instagram: sender names stay bold after you read a DM, and the unread marker appears right away without reloading the page.</li>
       </ul>
+
+      <p class="fineprint"><a href="changelog.html">Full changelog</a> — every version, on its own page.</p>
     </div>
   </section>
 </main>

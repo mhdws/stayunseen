@@ -31,6 +31,10 @@
   --ramp: linear-gradient(90deg, var(--steel), var(--lav));
   --radius: 14px;
   --pad: clamp(20px, 5vw, 40px);
+  /* The header runs wider than the 1080px content rail: the bar is one
+     full-bleed band of chrome around the page, and the wider measure gives
+     the segmented nav room on ~1200px screens without wrapping. */
+  --hdr-width: min(1360px, 100% - var(--pad) * 2);
   --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter,
     "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
@@ -57,13 +61,10 @@ body {
   letter-spacing: -0.006em;
 }
 
-/* The icon's ramp, as a hairline across the top of the page. */
-body::before {
-  content: "";
-  display: block;
-  height: 3px;
-  background: var(--ramp);
-}
+/* The top-of-page ramp hairline was removed: with the header now carrying
+   the scroll-progress ramp at its bottom edge, a second full-width ramp at
+   the document top read as the progress bar rendering in the wrong place
+   (visible on load, gone once scrolled). One ramp strip, one meaning. */
 
 img { max-width: 100%; height: auto; display: block; }
 
@@ -105,24 +106,75 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.12; margin: 0; }
   position: sticky;
   top: 0;
   z-index: 10;
-  /* Opaque, not blurred: a sticky backdrop-filter re-rasterises the strip on
-     every scroll frame, and at less than full opacity the content underneath
-     shows through it. */
-  background: var(--bg-deep);
-  border-bottom: 1px solid var(--line);
+  /* No band behind the stadium: the capsule floats directly on the page,
+     with just enough breathing room for its scroll shadow. The header
+     itself paints nothing, so the page's own field shows through. */
+  background: none;
+  border-bottom: none;
+  padding: 12px 0 14px;
 }
 
-/* Scroll progress: a 2px strip, scaleX'd by script inside one rAF per frame.
-   Pure transform, never repainted, and dropped entirely under
-   prefers-reduced-motion. */
+/* The bar itself is a stadium: one fully-rounded capsule, wider than the
+   content rail (see --hdr-width), floating on the band. overflow hidden
+   clips the corner glow and the progress strip to the rounded ends. */
+.header-in {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 56px;
+  max-width: var(--hdr-width);
+  margin: 0 auto;
+  /* Horizontal padding floors at 30px: a 56px capsule curves for 28px at
+     each end, and content must clear the curve. */
+  padding: 8px max(var(--pad), 30px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #1d2331, #161a25);
+  box-shadow: inset 0 1px 0 #ffffff0a;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+/* The brand's end of the capsule carries a soft ramp glow -- the same two
+   accent colors the icon ring spins through, painted once and clipped to
+   the stadium by the overflow above. Purely ambient: no runtime cost. */
+.header-in::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  pointer-events: none;
+  background: radial-gradient(
+    60% 100% at 0% 50%,
+    #a7a0e81c 0%,
+    #83b8d70d 45%,
+    transparent 75%
+  );
+}
+
+/* Once the page moves, the capsule gains depth -- one class flip on a scroll
+   threshold, not a per-frame style. Toggled from the same rAF the progress
+   bar already uses (and from its own listener when motion is reduced). */
+.site-header.is-scrolled .header-in {
+  box-shadow: inset 0 1px 0 #ffffff0a, 0 18px 40px -22px #000000d9;
+}
+
+/* Scroll progress: the only ramp strip on the page, pinned to the capsule's
+   bottom edge; the stadium's curve fades it out at the ends. A 2px strip,
+   scaleX'd by script inside one rAF per frame. Pure transform, never
+   repainted, and dropped entirely under prefers-reduced-motion. */
 .progress {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -1px;
+  bottom: 0;
   height: 2px;
   overflow: hidden;
   pointer-events: none;
+  z-index: 1;
 }
 
 .progress i {
@@ -133,52 +185,110 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.12; margin: 0; }
   transform-origin: 0 50%;
 }
 
-.header-in {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  min-height: 62px;
-  padding: 8px var(--pad);
-}
-
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   font-weight: 650;
-  font-size: 16px;
+  font-size: 16.5px;
+  letter-spacing: -0.01em;
   color: var(--ink);
   text-decoration: none;
   margin-right: auto;
 }
 
-.brand img { width: 30px; height: 30px; border-radius: 9px; }
+/* The icon sits inside the story-ring gradient -- the same conic the demo
+   renders around mia's avatar, so the header and the product demo share one
+   visual language. The ring glows on hover. */
+.brand-ring {
+  display: grid;
+  place-items: center;
+  padding: 2px;
+  border-radius: 11px;
+  background: conic-gradient(from 210deg, var(--steel), var(--lav), #8877c5, var(--steel));
+  transition: box-shadow 0.2s;
+}
 
+.brand-ring img { border-radius: 9px; }
+
+.brand:hover .brand-ring {
+  box-shadow: 0 0 0 3px #a7a0e826, 0 0 18px #a7a0e866;
+}
+
+/* The wordmark's second word carries the ramp, matching the hero h1. */
+.brand em {
+  font-style: normal;
+  background: var(--ramp);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* The nav reads as one control inside the capsule: a soft inset well
+   holding pill links -- borderless, because the stadium already draws the
+   container edge and a second border would read as clutter. The active
+   section fills with the brand ramp and flips to dark text, so where you
+   are on the page is answered by a bright chip. */
 .nav {
   display: flex;
-  gap: 4px;
+  gap: 3px;
   flex-wrap: wrap;
+  padding: 4px;
+  border-radius: 999px;
+  background: #ffffff07;
 }
 
 .nav a {
   color: var(--muted);
-  font-size: 14.5px;
+  font-size: 13.5px;
+  font-weight: 500;
   text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: color 0.15s, background-color 0.15s;
+  padding: 7px 13px;
+  border-radius: 999px;
+  transition: color 0.15s, background-color 0.15s, box-shadow 0.15s;
 }
 
-.nav a:hover { color: var(--ink); background: #ffffff0f; }
+.nav a:hover { color: var(--ink); background: #ffffff0d; }
+
+.nav a.active {
+  color: #0e1116;
+  font-weight: 600;
+  background: var(--ramp);
+  box-shadow: 0 2px 12px -3px #a7a0e880;
+}
 
 .badge {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font: 500 12px/1 var(--mono);
   color: var(--muted);
   border: 1px solid var(--line-hi);
   border-radius: 999px;
-  padding: 6px 11px;
+  padding: 7px 12px;
   white-space: nowrap;
+  background: #ffffff06;
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/* Hovering the badge lifts it into a lit pill -- a cheap color/shadow
+   change, no repaint of anything around it. */
+.badge:hover {
+  color: var(--ink);
+  border-color: var(--lav);
+  box-shadow: 0 0 0 4px #a7a0e814, 0 0 18px -4px #a7a0e866;
+}
+
+/* The popup's own status language: a breathing green dot. Same keyframes as
+   the hero pill, a 7px dot -- a few hundred pixels of animation. */
+.badge .hdot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--good);
+  box-shadow: 0 0 0 0 #79d8a23d;
+  animation: pill-breathe 2.4s ease-in-out infinite;
 }
 
 /* --- hero ----------------------------------------------------------------- */
@@ -808,7 +918,8 @@ h3 { font-size: 1.16rem; font-weight: 620; }
 /* --- changelog ------------------------------------------------------------- */
 
 /* Version groups, site-styled: the group head sits in the site's mono voice
-   and the list reads as the cards' sibling, not a <pre> blob. */
+   and the list reads as the cards' sibling, not a <pre> blob. Shared by the
+   index's changelog section and the standalone changelog.html. */
 .cl-group {
   margin: 34px 0 12px;
   font: 600 12px/1 var(--mono);
@@ -818,6 +929,15 @@ h3 { font-size: 1.16rem; font-weight: 620; }
 }
 
 .cl-group:first-of-type { margin-top: 0; }
+
+/* A release label and its date, for the standalone page's version headers. */
+.prose .cl-date {
+  margin: 6px 0 22px;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
 
 .cl-list {
   margin: 0;
@@ -1140,16 +1260,27 @@ thead th { border-top: 0; }
 
 @media (max-width: 720px) {
   body { font-size: 16px; }
-  .header-in { flex-wrap: wrap; min-height: 0; gap: 10px 14px; }
+  /* Two wrapped rows cannot be a capsule: the stadium flattens to a soft
+     rounded card, and the nav's swipe row keeps the full width. */
+  .header-in {
+    flex-wrap: wrap;
+    min-height: 0;
+    gap: 10px 14px;
+    border-radius: 20px;
+    padding: 10px 16px;
+  }
   .brand { margin-right: auto; }
   .badge { order: 2; }
   /* One row that swipes sideways rather than two rows pushing the hero down.
-     The bar itself is hidden; the fade of the last item is the affordance. */
+     The well flattens here -- padding off, the bar itself hidden; the fade
+     of the last item is the affordance. */
   .nav {
     order: 3;
     width: 100%;
-    margin: 0 calc(var(--pad) * -1) 2px;
-    padding: 0 var(--pad);
+    margin: 0 -6px 2px;
+    padding: 0;
+    border-radius: 0;
+    background: none;
     overflow-x: auto;
     flex-wrap: nowrap;
     scrollbar-width: none;
@@ -1166,6 +1297,6 @@ thead th { border-top: 0; }
   /* Every recurring animation added for engagement is ambient, never
      informational: breathing dot, hero drift, demo dots, story segment. All
      off here. */
-  .pill-dot, .hero-shot img, .typing i, .story-segs .seg.on::after { animation: none; }
+  .pill-dot, .badge .hdot, .hero-shot img, .typing i, .story-segs .seg.on::after { animation: none; }
   .progress { display: none; }
 }
