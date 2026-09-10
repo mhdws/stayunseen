@@ -8,7 +8,9 @@ web/
   index.html      the product page
   privacy.html    the privacy policy, same shell
   styles.css      one stylesheet for both pages
-  script.js       accent switch, reveals, card tilt, canvas field, gallery tabs
+  script.js       reveals, hero entrance + live feed + status cycle, pointer
+                  spotlight and hero tilt, interception flow, stat count-up,
+                  scroll progress, screenshot slideshow
   assets/         popup screenshots, the store screenshots, the extension icon
   downloads/      the three packaged builds, kept as an unpacked-install fallback
 ```

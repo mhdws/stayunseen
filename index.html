@@ -47,7 +47,7 @@
   <!-- hero -->
   <section class="wrap hero">
     <div>
-      <p class="status-pill"><span class="pill-dot" aria-hidden="true"></span>Active on Facebook + Instagram</p>
+      <p class="status-pill"><span class="pill-dot" aria-hidden="true"></span><span class="pill-text" id="statusText">Active on Facebook + Instagram</span></p>
 
       <h1>Look first.<span>Stay unseen.</span></h1>
 
@@ -74,14 +74,31 @@
     </div>
 
     <figure class="hero-shot">
-      <!-- WebP first: 46 KB against 117 KB for the same pixels, and this is the
-           one image above the fold on a phone. -->
-      <picture>
-        <source srcset="assets/popup-current.webp" type="image/webp" />
-        <img src="assets/popup-current.png" width="356" height="593" decoding="async"
-             alt="The Stay Unseen popup: a status line reading Active on Facebook + Instagram, 847 blocked in total with the last block 2 minutes ago, three counters for story views, read receipts and typing indicators, and seven switches grouped under Instagram, Facebook &amp; Messenger and Display." />
-      </picture>
+      <div class="hero-tilt" id="heroTilt">
+        <!-- WebP first: 46 KB against 117 KB for the same pixels, and this is the
+             one image above the fold on a phone. -->
+        <picture>
+          <source srcset="assets/popup-current.webp" type="image/webp" />
+          <img src="assets/popup-current.png" width="356" height="593" decoding="async"
+               alt="The Stay Unseen popup: a status line reading Active on Facebook + Instagram, 847 blocked in total with the last block 2 minutes ago, three counters for story views, read receipts and typing indicators, and seven switches grouped under Instagram, Facebook &amp; Messenger and Display." />
+        </picture>
+      </div>
       <figcaption>The whole extension: one panel, seven switches, nothing to configure.</figcaption>
+
+      <!-- The panel says how many; this says what it is doing right now. It is
+           script-driven and decorative, so it is hidden from assistive tech and
+           ships with three static rows for the no-JS case. -->
+      <div class="intercept" aria-hidden="true">
+        <div class="intercept-head">
+          <span class="intercept-title"><i class="idot"></i>Stopped just now</span>
+          <b class="intercept-total" id="interceptTotal">847</b>
+        </div>
+        <ul class="intercept-list" id="interceptList">
+          <li class="intercept-row"><span class="idot read"></span><span class="ilabel">Read receipt dropped</span><span class="itime">+1</span></li>
+          <li class="intercept-row"><span class="idot story"></span><span class="ilabel">Story view held back</span><span class="itime">+1</span></li>
+          <li class="intercept-row"><span class="idot typing"></span><span class="ilabel">Typing indicator cancelled</span><span class="itime">+1</span></li>
+        </ul>
+      </div>
     </figure>
   </section>
 
@@ -336,6 +353,31 @@
         Some signals go out as ordinary POSTs a network rule can cancel outright. Others
         are GraphQL calls and websocket frames that share an address with the traffic
         making the site work. So Stay Unseen works at both levels.
+      </p>
+    </div>
+
+    <!-- live interception flow: press a request and watch where it stops -->
+    <div class="flow reveal" id="flow">
+      <div class="flow-stage" id="flowStage">
+        <span class="flow-node flow-a"><i class="fdot"></i>Your browser</span>
+        <span class="flow-shield" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3.2 5 6v5c0 4.5 3 8.1 7 9.3 4-1.2 7-4.8 7-9.3V6z"/><path d="M9.2 12.1l2 2 3.6-4"/></svg>
+        </span>
+        <span class="flow-node flow-b"><i class="fdot"></i>Meta</span>
+        <span class="flow-packet" id="flowPacket" aria-hidden="true">seen</span>
+      </div>
+
+      <div class="flow-controls" role="group" aria-label="Send a request through the filter">
+        <button type="button" class="flow-chip" data-flow="seen">Story view</button>
+        <button type="button" class="flow-chip" data-flow="read">Read receipt</button>
+        <button type="button" class="flow-chip" data-flow="typing">Typing</button>
+        <button type="button" class="flow-chip is-allow" data-flow="send">Send a message</button>
+        <button type="button" class="flow-chip is-allow" data-flow="load">Load the feed</button>
+      </div>
+
+      <p class="flow-verdict" id="flowVerdict">
+        Each request is matched against a fixed list before it leaves. Try one above and
+        watch whether it reaches Meta or stops at the filter.
       </p>
     </div>
 

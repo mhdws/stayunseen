@@ -1,29 +1,35 @@
 /* Stay Unseen — product site behaviour.
 
-   Three jobs, all cheap: reveal each block once as it scrolls in, drive
-   the small touches (stat count-up, header progress bar), and rotate the
-   popup screenshots. Everything the old script did (a full-page canvas
-   particle field sized to the whole document, a pointer-tracked 3D card
-   tilt, an accent switcher) has been removed — the canvas was the main
-   reason the page dropped frames, since it cleared and redrew a
-   viewport-wide, document-tall bitmap on every animation frame.
+   The job is engagement without the old cost. Everything the previous
+   version removed for performance stays removed: there is no full-page
+   canvas, no per-frame document-wide redraw, and no recurring animation
+   except the small hero feed. What runs here is five things:
 
-   The count-up and progress bar are one-shot or transform-only work: the
-   counter writes text for under a second on first view, the progress bar
-   scales a 2px strip inside its own rAF tick, and both stop entirely under
-   prefers-reduced-motion. The interactive demo is pure CSS (a checkbox and
-   sibling selectors) — no script touches it.
+     - reveal each block once as it scrolls in (with a per-card stagger
+       carried entirely in CSS);
+     - the small touches: stat count-up, header progress bar, scrolled state;
+     - the hero feed, a three-row window onto the counters that adds a row
+       every couple of seconds while the hero is on screen;
+     - a pointer spotlight on the panels, which writes --mx/--my on the
+       hovered panel inside one rAF;
+     - a few degrees of pointer tilt on the hero popup, likewise one rAF.
 
-   The screenshot slideshow is a class flip and a setInterval that only
-   runs while the block is on screen, under the pointer or the keyboard it
-   pauses, the first manual control stops it for good, and it never starts
-   under prefers-reduced-motion. Without script the three figures keep
-   stacking vertically in the page.
+   The count-up is one-shot. The progress bar scales a 2px strip inside its
+   own rAF tick. The feed is one interval, cleared the moment the block
+   scrolls out of view or the tab is hidden, and both it and the pointer work
+   are skipped entirely under prefers-reduced-motion. The interactive demo is
+   still pure CSS (a checkbox and sibling selectors) — no script touches it.
+
+   The screenshot slideshow is a class flip and a setInterval that only runs
+   while the block is on screen; under the pointer or the keyboard it pauses,
+   the first manual control stops it for good, and it never starts under
+   prefers-reduced-motion. Without script the three figures keep stacking
+   vertically in the page.
 
    Under prefers-reduced-motion, or without IntersectionObserver, everything is
    revealed in one pass instead. With scripting off entirely, the <noscript>
-   style in the page keeps the .reveal blocks visible and the counters show
-   their final values. */
+   style in the page keeps the .reveal blocks visible, the feed's static rows
+   stay put, and the counters show their final values. */
 
 (function () {
   "use strict";
@@ -291,5 +297,374 @@
       );
       heroObs.observe(hero);
     }
+  }
+
+  /* --- hero live feed -------------------------------------------------------
+     Three rows that keep arriving while the hero is on screen: the running
+     total ticks and a new row drops in. One interval, cleared whenever the
+     block scrolls away or the tab is hidden, and never started under
+     prefers-reduced-motion (the static rows in the HTML just stay put). */
+
+  var feedList = document.getElementById("interceptList");
+  var feedTotal = document.getElementById("interceptTotal");
+
+  if (feedList && feedTotal && !reduced) {
+    var FEED = [
+      ["read", "Read receipt dropped"],
+      ["story", "Story view held back"],
+      ["typing", "Typing indicator cancelled"]
+    ];
+    var feedValue = parseInt(feedTotal.textContent, 10);
+    if (isNaN(feedValue)) feedValue = 847;
+    var feedStep = 0;
+    var feedTimer = null;
+    var feedInView = false;
+
+    var feedAdd = function () {
+      var kind = FEED[feedStep % FEED.length];
+      feedStep++;
+
+      feedValue++;
+      feedTotal.textContent = String(feedValue);
+      feedTotal.classList.remove("is-bump");
+      // read the box once so removing and re-adding the class restarts the
+      // keyframes instead of being coalesced away
+      void feedTotal.offsetWidth;
+      feedTotal.classList.add("is-bump");
+
+      var row = document.createElement("li");
+      row.className = "intercept-row is-new";
+      var dot = document.createElement("span");
+      dot.className = "idot " + kind[0];
+      var label = document.createElement("span");
+      label.className = "ilabel";
+      label.textContent = kind[1];
+      var time = document.createElement("span");
+      time.className = "itime";
+      time.textContent = "+1";
+      row.appendChild(dot);
+      row.appendChild(label);
+      row.appendChild(time);
+      feedList.insertBefore(row, feedList.firstChild);
+      // same trick: one frame with the enter state, then settle it
+      void row.offsetWidth;
+      row.classList.remove("is-new");
+      while (feedList.children.length > 3) feedList.removeChild(feedList.lastChild);
+    };
+
+    // The status line names the sites it is covering; it rotates on the same
+    // clock as the feed, one swap every third row, so the two read as one
+    // live panel rather than two unrelated animations.
+    var statusText = document.getElementById("statusText");
+    var STATUSES = [
+      "Active on Facebook + Instagram",
+      "Active on Instagram",
+      "Active on Facebook"
+    ];
+    var statusStep = 0;
+    var feedTick = 0;
+
+    var cycleStatus = function () {
+      if (!statusText) return;
+      statusStep = (statusStep + 1) % STATUSES.length;
+      statusText.classList.add("is-out");
+      window.setTimeout(function () {
+        statusText.textContent = STATUSES[statusStep];
+        statusText.classList.remove("is-out");
+      }, 280);
+    };
+
+    var feedRun = function () {
+      if (feedTimer !== null || !feedInView || document.hidden) return;
+      feedTimer = setInterval(function () {
+        feedAdd();
+        feedTick++;
+        if (feedTick % 3 === 0) cycleStatus();
+      }, 1800);
+    };
+
+    var feedHalt = function () {
+      if (feedTimer !== null) {
+        clearInterval(feedTimer);
+        feedTimer = null;
+      }
+    };
+
+    if ("IntersectionObserver" in window) {
+      var feedObs = new IntersectionObserver(
+        function (entries) {
+          feedInView = entries[entries.length - 1].isIntersecting;
+          if (feedInView) feedRun();
+          else feedHalt();
+        },
+        { threshold: 0.2 }
+      );
+      feedObs.observe(feedList);
+    } else {
+      feedInView = true;
+      feedRun();
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) feedHalt();
+      else feedRun();
+    });
+  }
+
+  /* --- panel pointer spotlight ----------------------------------------------
+     Only on a real pointer: the cursor position goes into two custom
+     properties on the panel being hovered, coalesced into one rAF. The inner
+     gradient follows the pointer; nothing else is touched. */
+
+  var glow = document.querySelectorAll(".card, .demo, .compare > div");
+  var finePointer =
+    window.matchMedia &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (glow.length && finePointer && !reduced) {
+    var glowMove = function (e) {
+      var el = e.currentTarget;
+      if (el.__spot) return;
+      el.__spot = true;
+      var x = e.clientX;
+      var y = e.clientY;
+      requestAnimationFrame(function () {
+        el.__spot = false;
+        var r = el.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        el.style.setProperty("--mx", (((x - r.left) / r.width) * 100).toFixed(2) + "%");
+        el.style.setProperty("--my", (((y - r.top) / r.height) * 100).toFixed(2) + "%");
+      });
+    };
+    for (var gp = 0; gp < glow.length; gp++) {
+      glow[gp].addEventListener("pointermove", glowMove, { passive: true });
+    }
+  }
+
+  /* --- hero shot tilt -------------------------------------------------------
+     A few degrees of parallax on the popup image, following the pointer over
+     it: transform-only on one element, at most one rAF per frame. */
+
+  var tilt = document.getElementById("heroTilt");
+
+  if (tilt && finePointer && !reduced) {
+    var tiltPending = false;
+    var tiltX = 0;
+    var tiltY = 0;
+
+    var tiltApply = function () {
+      tiltPending = false;
+      var r = tilt.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      var nx = (tiltX - (r.left + r.width / 2)) / (r.width / 2);
+      var ny = (tiltY - (r.top + r.height / 2)) / (r.height / 2);
+      nx = Math.max(-1, Math.min(1, nx));
+      ny = Math.max(-1, Math.min(1, ny));
+      tilt.style.setProperty("--hy", (nx * 5).toFixed(2) + "deg");
+      tilt.style.setProperty("--hx", (-ny * 5).toFixed(2) + "deg");
+    };
+
+    tilt.addEventListener(
+      "pointermove",
+      function (e) {
+        tiltX = e.clientX;
+        tiltY = e.clientY;
+        if (tiltPending) return;
+        tiltPending = true;
+        requestAnimationFrame(tiltApply);
+      },
+      { passive: true }
+    );
+
+    tilt.addEventListener("pointerleave", function () {
+      tilt.style.setProperty("--hy", "0deg");
+      tilt.style.setProperty("--hx", "0deg");
+    });
+  }
+
+  /* --- interception flow ----------------------------------------------------
+     The mechanism visual: one packet is moved with transform between three
+     stops — the start, the filter, and Meta. A blocked request stops at the
+     filter and takes the "blocked" tint; an allowed one carries on and takes
+     the "passed" tint. The chips fire a request by hand; left alone it
+     autoplays through them while it is on screen. Under reduced motion there
+     is no autoplay and no travel: a click just places the packet at its
+     destination and updates the verdict. */
+
+  var flowRoot = document.getElementById("flow");
+
+  if (flowRoot) {
+    var flowStage = document.getElementById("flowStage");
+    var flowPacket = document.getElementById("flowPacket");
+    var flowVerdict = document.getElementById("flowVerdict");
+    var flowChips = flowRoot.querySelectorAll(".flow-chip");
+
+    var FLOW = {
+      seen: {
+        short: "seen",
+        blocked: true,
+        verdict:
+          "<b>Story view</b> — stopped at the network rule. The write that would add you to the viewer list never leaves, so their count stays one lower."
+      },
+      read: {
+        short: "read",
+        blocked: true,
+        verdict:
+          "<b>Read receipt</b> — stopped at the network rule. Their message keeps saying Delivered, while your side still opens normally."
+      },
+      typing: {
+        short: "typing…",
+        blocked: true,
+        verdict:
+          "<b>Typing indicator</b> — stopped by the page patch, because these go out over a websocket with no address of their own to cancel."
+      },
+      send: {
+        short: "Send: hey!",
+        blocked: false,
+        verdict:
+          "<b>Send a message</b> — allowed through. A message you chose to send is not a signal to hide, so the other person is told."
+      },
+      load: {
+        short: "GET /feed",
+        blocked: false,
+        verdict:
+          "<b>Load the feed</b> — allowed through untouched. Only the seen, read and typing writes are matched against the list."
+      }
+    };
+
+    var flowOrder = ["seen", "read", "typing", "send", "load"];
+    var flowIndex = 0;
+    var flowBusy = false;
+    var flowInView = false;
+    var flowTimer = null;
+    var flowPausedUntil = 0;
+
+    var flowActive = function (id) {
+      for (var c = 0; c < flowChips.length; c++) {
+        flowChips[c].classList.toggle(
+          "active",
+          flowChips[c].getAttribute("data-flow") === id
+        );
+      }
+    };
+
+    var flowFire = function (id) {
+      var data = FLOW[id];
+      if (!data || flowBusy) return;
+      flowBusy = true;
+      flowActive(id);
+      if (flowVerdict) flowVerdict.innerHTML = data.verdict;
+      flowPacket.textContent = data.short;
+
+      // Anchor the travel to the real pieces rather than fixed offsets: the
+      // packet leaves clear of the browser node and lands clear of the filter
+      // or the Meta node, whatever the viewport width does to their boxes.
+      var stageRect = flowStage.getBoundingClientRect();
+      var pw = flowPacket.offsetWidth || 90;
+      var aRight = flowStage.querySelector(".flow-a").getBoundingClientRect().right - stageRect.left;
+      var bLeft = flowStage.querySelector(".flow-b").getBoundingClientRect().left - stageRect.left;
+      var shieldRect = flowStage.querySelector(".flow-shield").getBoundingClientRect();
+      var shieldLeft = shieldRect.left - stageRect.left;
+      var shieldCentre = shieldLeft + shieldRect.width / 2;
+      var startX = aRight + 12;
+      // Stop short of the filter when there is room; on a narrow stage there
+      // is not, so let the packet reach the filter itself and be swallowed.
+      var beforeShield = shieldLeft - pw - 8;
+      var blockedX =
+        beforeShield >= startX ? beforeShield : Math.max(startX, shieldCentre - pw / 2);
+      var endX = Math.max(startX, bLeft - pw - 12);
+      var landX = data.blocked ? blockedX : endX;
+
+      if (reduced) {
+        flowPacket.classList.add("no-anim");
+        flowPacket.classList.remove("is-blocked", "is-passed");
+        flowPacket.style.setProperty("--px", landX + "px");
+        flowPacket.classList.add(data.blocked ? "is-blocked" : "is-passed");
+        flowPacket.style.opacity = "1";
+        void flowPacket.offsetWidth;
+        flowPacket.classList.remove("no-anim");
+        flowBusy = false;
+        return;
+      }
+
+      // snap back to the start, hidden, without animating the snap
+      flowPacket.classList.add("no-anim");
+      flowPacket.classList.remove("is-blocked", "is-passed");
+      flowPacket.style.opacity = "0";
+      flowPacket.style.setProperty("--px", startX + "px");
+      void flowPacket.offsetWidth;
+      flowPacket.classList.remove("no-anim");
+
+      requestAnimationFrame(function () {
+        flowPacket.style.opacity = "1";
+        flowPacket.style.setProperty("--px", landX + "px");
+        window.setTimeout(function () {
+          flowPacket.classList.add(data.blocked ? "is-blocked" : "is-passed");
+          window.setTimeout(function () {
+            flowPacket.style.opacity = "0";
+            window.setTimeout(function () {
+              flowBusy = false;
+            }, 360);
+          }, 340);
+        }, 900);
+      });
+    };
+
+    var flowTick = function () {
+      flowTimer = window.setTimeout(function () {
+        flowTimer = null;
+        if (flowInView && Date.now() >= flowPausedUntil) {
+          flowFire(flowOrder[flowIndex % flowOrder.length]);
+          flowIndex++;
+        }
+        flowTick();
+      }, 2900);
+    };
+
+    var flowRun = function () {
+      if (flowTimer !== null || reduced) return;
+      flowTick();
+    };
+
+    var flowHalt = function () {
+      if (flowTimer !== null) {
+        window.clearTimeout(flowTimer);
+        flowTimer = null;
+      }
+    };
+
+    for (var cf = 0; cf < flowChips.length; cf++) {
+      (function (btn) {
+        btn.addEventListener("click", function () {
+          // hold the autoplay back so the request you picked stays put
+          flowPausedUntil = Date.now() + 9000;
+          flowFire(btn.getAttribute("data-flow"));
+        });
+      })(flowChips[cf]);
+    }
+
+    if (reduced) {
+      // no travel and no autoplay, but still show one request parked at the
+      // filter so the visual is not an empty stage
+      flowFire("seen");
+    } else if ("IntersectionObserver" in window) {
+      var flowObs = new IntersectionObserver(
+        function (entries) {
+          flowInView = entries[entries.length - 1].isIntersecting;
+          if (flowInView) flowRun();
+          else flowHalt();
+        },
+        { threshold: 0.3 }
+      );
+      flowObs.observe(flowRoot);
+    } else {
+      flowInView = true;
+      flowRun();
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) flowHalt();
+      else if (flowInView) flowRun();
+    });
   }
 })();
