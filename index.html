@@ -19,6 +19,19 @@
     />
     <meta property="og:url" content="https://stayunseen.bond/" />
     <meta property="og:image" content="https://stayunseen.bond/assets/promo-poster.jpg" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    <meta property="og:image:alt" content="Stay Unseen — browse Instagram, Facebook and Messenger without being seen" />
+    <meta property="og:site_name" content="Stay Unseen" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Stay Unseen — Read, view, and type without being seen" />
+    <meta name="twitter:description" content="Intercept and terminate outgoing Meta activity pings before they ever leave your browser." />
+    <meta name="twitter:image" content="https://stayunseen.bond/assets/promo-poster.jpg" />
+    <meta name="twitter:image:alt" content="Stay Unseen — browse Instagram, Facebook and Messenger without being seen" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="author" content="Mheadows" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://stayunseen.bond/sitemap.xml" />
 
     <script>
       document.documentElement.classList.add("js");
@@ -95,6 +108,40 @@
               "@type": "Answer",
               "text": "No. It hides story and reel views, read receipts and typing indicators. Your active indicator is a different thing and is left untouched."
             }
+          }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://stayunseen.bond/#website",
+            "url": "https://stayunseen.bond/",
+            "name": "Stay Unseen",
+            "description": "Client-side privacy engine for Instagram, Facebook and Messenger.",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://stayunseen.bond/#author" }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://stayunseen.bond/#app",
+            "name": "Stay Unseen",
+            "applicationCategory": "BrowserApplication",
+            "operatingSystem": "Chrome, Edge, Firefox",
+            "url": "https://stayunseen.bond/",
+            "description": "Stops Instagram and Facebook from marking your story views and DMs as seen, and hides your typing indicator.",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "author": { "@id": "https://stayunseen.bond/#author" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://stayunseen.bond/#author",
+            "name": "Mheadows",
+            "url": "https://mheadows.bond/"
           }
         ]
       }
@@ -293,7 +340,7 @@
                   </div>
 
                   <div class="su-foot">
-                    <span>v1.1.0</span>
+                    <span>v1.1.1</span>
                     <a href="https://stayunseen.bond/" target="_blank" rel="noopener noreferrer">Rate</a>
                     <a href="changelog.html">Changelog</a>
                     <button type="button" class="su-reset">Reset counters</button>
@@ -1082,7 +1129,7 @@
               </p>
             </div>
             <span class="inline-flex items-center gap-2 rounded-full border border-typing/30 bg-typing/10 px-3 py-1.5 font-mono text-[11px] text-typing">
-              <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-typing"></span> current release v1.1.0
+              <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-typing"></span> current release v1.1.1
             </span>
           </div>
 
@@ -1095,8 +1142,8 @@
               class="group flex flex-col rounded-3xl border border-white/10 bg-panel/50 p-6 transition hover:-translate-y-1 hover:border-white/25"
             >
               <div class="flex items-center justify-between">
-                <img src="assets/Google_Chrome_icon_(February_2022).svg" alt="Google Chrome" class="h-9 w-9" />
-                <span class="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[10px] text-muted">v1.1.0</span>
+                <img src="assets/Google_Chrome_icon_(February_2022).svg" alt="Google Chrome" class="h-9 w-9" loading="lazy" decoding="async" />
+                <span class="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[10px] text-muted">v1.1.1</span>
               </div>
               <h3 class="mt-6 text-lg font-bold tracking-tight">Chrome Web Store</h3>
               <p class="mt-2 text-sm text-muted">Manifest V3 · also Brave, Vivaldi, Opera.</p>
@@ -1113,8 +1160,8 @@
               class="group flex flex-col rounded-3xl border border-white/10 bg-panel/50 p-6 transition hover:-translate-y-1 hover:border-white/25"
             >
               <div class="flex items-center justify-between">
-                <img src="assets/firefox-browser-icon.svg" alt="Mozilla Firefox" class="h-9 w-9" />
-                <span class="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[10px] text-muted">v1.1.0</span>
+                <img src="assets/firefox-browser-icon.svg" alt="Mozilla Firefox" class="h-9 w-9" loading="lazy" decoding="async" />
+                <span class="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[10px] text-muted">v1.1.1</span>
               </div>
               <h3 class="mt-6 text-lg font-bold tracking-tight">Firefox Add-ons</h3>
               <p class="mt-2 text-sm text-muted">webRequest blocking · also Zen, Waterfox.</p>
@@ -1131,8 +1178,8 @@
               class="group flex flex-col rounded-3xl border border-white/10 bg-panel/50 p-6 transition hover:-translate-y-1 hover:border-white/25 sm:col-span-2 lg:col-span-1"
             >
               <div class="flex items-center justify-between">
-                <img src="assets/microsoft_edge-icon.svg" alt="Microsoft Edge" class="h-9 w-9" />
-                <span class="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[10px] text-muted">v1.1.0</span>
+                <img src="assets/microsoft_edge-icon.svg" alt="Microsoft Edge" class="h-9 w-9" loading="lazy" decoding="async" />
+                <span class="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[10px] text-muted">v1.1.1</span>
               </div>
               <h3 class="mt-6 text-lg font-bold tracking-tight">Edge Add-ons</h3>
               <p class="mt-2 text-sm text-muted">Same engine · Microsoft Edge.</p>
@@ -1177,7 +1224,7 @@
       <section class="relative overflow-hidden px-5 py-24 sm:py-28">
         <div class="glow-spot left-1/2 top-1/2 h-[24rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 bg-indigo/30" aria-hidden="true"></div>
         <div class="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center" data-reveal>
-          <img src="assets/icon128.png" alt="" class="h-16 w-16 rounded-2xl ring-1 ring-white/10" />
+          <img src="assets/icon128.png" alt="" class="h-16 w-16 rounded-2xl ring-1 ring-white/10" loading="lazy" decoding="async" />
           <h2 class="mt-7 inline-block text-4xl font-extrabold tracking-tightest sm:text-5xl">
             <span class="wordmark">Look first. Stay unseen.</span>
           </h2>
@@ -1203,7 +1250,7 @@
             </a>
           </div>
           <p class="mt-8 font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted">
-            v1.1.0 · no server · no analytics · nothing leaves your browser
+            v1.1.1 · no server · no analytics · nothing leaves your browser
           </p>
         </div>
       </section>
@@ -1212,10 +1259,14 @@
     <!-- ================= FOOTER ================= -->
     <footer id="site-footer" class="border-t border-white/10 bg-deep/60 px-5 py-10">
       <div class="mx-auto max-w-6xl space-y-2 text-center font-mono text-[10.5px] text-muted">
-        <p>Stay Unseen v1.1.0 · no server · no analytics · nothing leaves your browser</p>
+        <p>Stay Unseen v1.1.1 · no server · no analytics · nothing leaves your browser</p>
         <p>
           <a class="transition hover:text-ink" href="privacy.html">Privacy policy</a>
           · Independent project, not affiliated with Meta Platforms, Instagram, Facebook, or Microsoft
+        </p>
+        <p>
+          Made by
+          <a class="transition hover:text-ink" href="https://mheadows.bond/" target="_blank" rel="noopener noreferrer">Mheadows</a>
         </p>
       </div>
     </footer>

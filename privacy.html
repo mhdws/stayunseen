@@ -10,6 +10,23 @@
     />
     <meta name="theme-color" content="#12161f" />
     <link rel="canonical" href="https://stayunseen.bond/privacy.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Privacy policy — Stay Unseen" />
+    <meta property="og:description" content="Stay Unseen has no server and collects nothing. This page states exactly what it stores on your device, why it reads request bodies, and what it does not do." />
+    <meta property="og:url" content="https://stayunseen.bond/privacy.html" />
+    <meta property="og:image" content="https://stayunseen.bond/assets/promo-poster.jpg" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    <meta property="og:image:alt" content="Stay Unseen privacy policy" />
+    <meta property="og:site_name" content="Stay Unseen" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Privacy policy — Stay Unseen" />
+    <meta name="twitter:description" content="No server, no analytics, no collection: exactly what Stay Unseen stores on your device." />
+    <meta name="twitter:image" content="https://stayunseen.bond/assets/promo-poster.jpg" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="author" content="Mheadows" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://stayunseen.bond/sitemap.xml" />
     <link rel="icon" href="assets/icon128.png" />
     <script>
       document.documentElement.classList.add("js");
@@ -22,6 +39,30 @@
     />
     <link rel="stylesheet" href="assets/tailwind.css" />
     <link rel="stylesheet" href="assets/app.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://stayunseen.bond/privacy.html#webpage",
+            "url": "https://stayunseen.bond/privacy.html",
+            "name": "Privacy policy — Stay Unseen",
+            "description": "Stay Unseen has no server and collects nothing. Exactly what it stores on your device and what it does not do.",
+            "inLanguage": "en",
+            "isPartOf": { "@id": "https://stayunseen.bond/#website" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://stayunseen.bond/" },
+              { "@type": "ListItem", "position": 2, "name": "Privacy policy", "item": "https://stayunseen.bond/privacy.html" }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body class="relative bg-surface font-sans text-ink antialiased selection:bg-shield/40 selection:text-white">
@@ -255,10 +296,14 @@
     <!-- ================= FOOTER ================= -->
     <footer class="border-t border-white/10 bg-deep/60 px-5 py-10">
       <div class="mx-auto max-w-6xl space-y-2 text-center font-mono text-[10.5px] text-muted">
-        <p>Stay Unseen v1.1.0 · no server · no analytics · nothing leaves your browser</p>
+        <p>Stay Unseen v1.1.1 · no server · no analytics · nothing leaves your browser</p>
         <p>
           <a class="transition hover:text-ink" href="privacy.html">Privacy policy</a>
           · Independent project, not affiliated with Meta Platforms, Instagram, Facebook, or Microsoft
+        </p>
+        <p>
+          Made by
+          <a class="transition hover:text-ink" href="https://mheadows.bond/" target="_blank" rel="noopener noreferrer">Mheadows</a>
         </p>
       </div>
     </footer>

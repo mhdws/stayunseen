@@ -7,6 +7,23 @@
     <meta name="description" content="Every change in Stay Unseen, version by version: what was added, what was fixed, and why." />
     <meta name="theme-color" content="#12161f" />
     <link rel="canonical" href="https://stayunseen.bond/changelog.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Changelog — Stay Unseen" />
+    <meta property="og:description" content="Every change in Stay Unseen, version by version: what was added, what was fixed, and why." />
+    <meta property="og:url" content="https://stayunseen.bond/changelog.html" />
+    <meta property="og:image" content="https://stayunseen.bond/assets/promo-poster.jpg" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    <meta property="og:image:alt" content="Stay Unseen changelog" />
+    <meta property="og:site_name" content="Stay Unseen" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Changelog — Stay Unseen" />
+    <meta name="twitter:description" content="Every change in Stay Unseen, version by version: what was added, what was fixed, and why." />
+    <meta name="twitter:image" content="https://stayunseen.bond/assets/promo-poster.jpg" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="author" content="Mheadows" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://stayunseen.bond/sitemap.xml" />
     <link rel="icon" href="assets/icon128.png" />
     <script>
       document.documentElement.classList.add("js");
@@ -19,6 +36,32 @@
     />
     <link rel="stylesheet" href="assets/tailwind.css" />
     <link rel="stylesheet" href="assets/app.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Article",
+            "@id": "https://stayunseen.bond/changelog.html#article",
+            "headline": "Stay Unseen changelog",
+            "description": "Every change in Stay Unseen, version by version: what was added, what was fixed, and why.",
+            "url": "https://stayunseen.bond/changelog.html",
+            "dateModified": "2026-09-12",
+            "inLanguage": "en",
+            "author": { "@type": "Person", "name": "Mheadows", "url": "https://mheadows.bond/" },
+            "publisher": { "@type": "Person", "name": "Mheadows", "url": "https://mheadows.bond/" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://stayunseen.bond/" },
+              { "@type": "ListItem", "position": 2, "name": "Changelog", "item": "https://stayunseen.bond/changelog.html" }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body class="relative bg-surface font-sans text-ink antialiased selection:bg-shield/40 selection:text-white">
@@ -74,19 +117,20 @@
         <header class="prose doc-head" data-reveal>
           <p class="eyebrow">Changelog</p>
           <h1>What changed,<span class="grad">version by version.</span></h1>
-          <p class="updated">Current release: 1.1.0</p>
+          <p class="updated">Current release: 1.1.1</p>
         </header>
 
         <div class="doc-grid mt-14">
           <aside class="lg:sticky lg:top-28 lg:self-start" data-reveal>
             <p class="toc-label">Releases</p>
             <nav class="toc" aria-label="Releases">
-              <a href="#v110">1.1.0 — current</a>
+              <a href="#v111">1.1.1 — current</a>
+              <a href="#v110">1.1.0</a>
               <a href="#v105">1.0.5</a>
             </nav>
             <div class="mt-6 rounded-2xl border border-white/10 bg-panel/50 p-4">
               <span class="inline-flex items-center gap-2 rounded-full border border-typing/30 bg-typing/10 px-3 py-1 font-mono text-[10px] text-typing">
-                <span class="h-1.5 w-1.5 rounded-full bg-typing"></span>v1.1.0
+                <span class="h-1.5 w-1.5 rounded-full bg-typing"></span>v1.1.1
               </span>
               <p class="mt-3 text-xs leading-relaxed text-muted">Install the current release from your browser's own store.</p>
               <a href="index.html#install" class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-shield transition hover:text-ink">Install <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
@@ -94,9 +138,24 @@
           </aside>
 
           <div class="prose" data-reveal>
+            <section id="v111">
+              <h2>1.1.1</h2>
+              <p class="updated">Current release</p>
+
+              <div class="cl-group">New</div>
+              <ul>
+                <li>After an update, Stay Unseen opens this changelog page once so you can see what changed.</li>
+              </ul>
+
+              <div class="cl-group">Fixed</div>
+              <ul>
+                <li>Removed the extra red dot on stories and chats. The native unread indicators are kept as-is: the unseen-story ring on Instagram and Facebook, and the bold unread conversation name on Instagram, Facebook, and Messenger.</li>
+              </ul>
+            </section>
+
             <section id="v110">
               <h2>1.1.0</h2>
-              <p class="updated">Current release</p>
+              <p class="updated">Previous release</p>
 
               <div class="cl-group">New</div>
               <ul>
@@ -115,7 +174,7 @@
 
             <section id="v105">
               <h2>1.0.5</h2>
-              <p class="updated">Previous release</p>
+              <p class="updated">Initial release</p>
               <p>The original release: six blocking switches, per-feature counters, and keep-unread markers.</p>
             </section>
           </div>
@@ -126,10 +185,14 @@
     <!-- ================= FOOTER ================= -->
     <footer class="border-t border-white/10 bg-deep/60 px-5 py-10">
       <div class="mx-auto max-w-6xl space-y-2 text-center font-mono text-[10.5px] text-muted">
-        <p>Stay Unseen v1.1.0 · no server · no analytics · nothing leaves your browser</p>
+        <p>Stay Unseen v1.1.1 · no server · no analytics · nothing leaves your browser</p>
         <p>
           <a class="transition hover:text-ink" href="privacy.html">Privacy policy</a>
           · Independent project, not affiliated with Meta Platforms, Instagram, Facebook, or Microsoft
+        </p>
+        <p>
+          Made by
+          <a class="transition hover:text-ink" href="https://mheadows.bond/" target="_blank" rel="noopener noreferrer">Mheadows</a>
         </p>
       </div>
     </footer>
