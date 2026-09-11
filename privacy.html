@@ -1,204 +1,245 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Privacy policy — Stay Unseen</title>
-<meta name="description" content="Stay Unseen has no server and collects nothing. This page states exactly what it stores on your device, why it reads request bodies, and what it does not do." />
-<meta name="theme-color" content="#191d25" />
-<link rel="icon" type="image/png" href="assets/icon128.png" />
-<link rel="stylesheet" href="styles.css" />
-<script>document.documentElement.className = "js";</script>
-<noscript><style>.js .reveal { opacity: 1; transform: none; }</style></noscript>
-</head>
-<body>
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy policy — Stay Unseen</title>
+    <meta
+      name="description"
+      content="Stay Unseen has no server and collects nothing. This page states exactly what it stores on your device, why it reads request bodies, and what it does not do."
+    />
+    <meta name="theme-color" content="#12161f" />
+    <link rel="canonical" href="https://stayunseen.bond/privacy.html" />
+    <link rel="icon" href="assets/icon128.png" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/tailwind.css" />
+    <link rel="stylesheet" href="assets/app.css" />
+  </head>
 
-<header class="site-header">
-  <div class="header-in">
-    <a class="brand" href="index.html">
-      <span class="brand-ring"><img src="assets/icon128.png" alt="" width="30" height="30" /></span>
-      Stay <em>Unseen</em>
-    </a>
-    <nav class="nav" aria-label="Sections">
-      <a href="index.html#stops">What it stops</a>
-      <a href="index.html#demo">Try it</a>
-      <a href="index.html#popup">The popup</a>
-      <a href="index.html#how">How it works</a>
-      <a href="index.html#install">Install</a>
-    </nav>
-    <span class="badge">Privacy policy</span>
-    <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
-  </div>
-</header>
+  <body class="relative bg-surface font-sans text-ink antialiased selection:bg-shield/40 selection:text-white">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-xl focus:bg-panel focus:px-4 focus:py-2 focus:text-sm focus:text-ink"
+      >Skip to content</a
+    >
 
-<main class="wrap">
-  <article class="prose">
-    <p class="eyebrow">Privacy policy</p>
-    <h1>No server.<span>Nothing collected.</span></h1>
-    <p class="updated">Last updated 7 September 2026 · applies to Stay Unseen 1.1.0</p>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
 
-    <p>
-      Stay Unseen is a browser extension that stops Instagram, Facebook and Messenger
-      from reporting that you have viewed a story, read a message, or started typing a
-      reply.
-    </p>
+    <!-- ================= NAVBAR ================= -->
+    <header class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
+      <nav
+        data-nav
+        class="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-2xl border border-white/10 bg-deep/80 px-3 py-2.5 backdrop-blur-md transition-shadow duration-300 sm:px-4"
+      >
+        <a href="index.html" class="flex items-center gap-2.5 rounded-xl">
+          <img src="assets/icon128.png" alt="Stay Unseen shield" class="h-9 w-9 rounded-xl object-cover ring-1 ring-white/10" width="36" height="36" />
+          <span class="flex flex-col leading-none">
+            <span class="text-[15px] font-bold tracking-tightest">Stay Unseen</span>
+            <span class="mt-1 hidden items-center gap-1.5 whitespace-nowrap font-mono text-[10px] text-muted sm:flex">
+              <span class="su-status pulse inline-block"></span>
+              Active on Facebook + Instagram
+            </span>
+          </span>
+        </a>
 
-    <section class="reveal">
-      <h2>The short version</h2>
-      <p>
-        Stay Unseen has no server. It does not collect, transmit, sell, or share any
-        information about you with anyone, including its developer. Everything it records
-        stays inside your own copy of your browser, and uninstalling the extension
-        deletes all of it.
-      </p>
-    </section>
+        <div class="hidden items-center gap-1 lg:flex">
+          <a class="rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-white/5 hover:text-ink" href="index.html#features">Features</a>
+          <a class="rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-white/5 hover:text-ink" href="index.html#architecture">Architecture</a>
+          <a class="rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-white/5 hover:text-ink" href="privacy.html">Privacy</a>
+          <a class="rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-white/5 hover:text-ink" href="index.html#controls">Controls</a>
+          <a class="rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-white/5 hover:text-ink" href="index.html#faq">FAQ</a>
+          <a class="rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-white/5 hover:text-ink" href="tutorial.html">Tutorial</a>
+          <a class="rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-white/5 hover:text-ink" href="index.html#install">Install</a>
+        </div>
 
-    <section class="reveal">
-      <h2>What it stores on your device</h2>
-      <p>
-        All of the following is kept in the browser's local extension storage
-        (<code>storage.local</code>). None of it is ever sent anywhere.
-      </p>
+        <a
+          href="index.html#install"
+          data-browser-cta
+          class="magnetic group inline-flex items-center gap-2 whitespace-nowrap rounded-xl bg-shield px-3.5 py-2 text-sm font-semibold text-white shadow-[0_0_0_1px_rgba(99,102,241,.6)] transition-shadow hover:shadow-glow sm:px-4"
+        >
+          <i data-lucide="plus" class="h-4 w-4"></i>
+          <span data-browser-label>Add to Chrome</span>
+        </a>
+      </nav>
+    </header>
 
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th scope="col">What</th><th scope="col">Why</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>Seven on/off settings — six blocking features and the unread-marker preference</td>
-              <td>So your switches survive a restart</td>
-            </tr>
-            <tr>
-              <td>A count of blocked signals per feature</td>
-              <td>Powers the counters in the popup and the toolbar badge</td>
-            </tr>
-            <tr>
-              <td>A capped log of recent block/allow decisions — endpoint, which layer decided, timestamp, with message text removed</td>
-              <td>So a signal that stops being blocked can be diagnosed after a site change</td>
-            </tr>
-          </tbody>
-        </table>
+    <main id="main" class="relative z-10 px-5 pb-20 pt-32 sm:pt-40">
+      <div class="prose mx-auto">
+        <p class="eyebrow">Privacy policy</p>
+        <h1>No server.<span class="grad">Nothing collected.</span></h1>
+        <p class="updated">Last updated 7 September 2026 · applies to Stay Unseen 1.1.0</p>
+
+        <p>
+          Stay Unseen is a browser extension that stops Instagram, Facebook and Messenger from reporting that
+          you have viewed a story, read a message, or started typing a reply.
+        </p>
+
+        <section data-reveal>
+          <h2>The short version</h2>
+          <p>
+            Stay Unseen has no server. It does not collect, transmit, sell, or share any information about you
+            with anyone, including its developer. Everything it records stays inside your own copy of your
+            browser, and uninstalling the extension deletes all of it.
+          </p>
+        </section>
+
+        <section data-reveal>
+          <h2>What it stores on your device</h2>
+          <p>
+            All of the following is kept in the browser's local extension storage
+            (<code>storage.local</code>). None of it is ever sent anywhere.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th scope="col">What</th><th scope="col">Why</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Seven on/off settings — six blocking features and the unread-marker preference</td>
+                  <td>So your switches survive a restart</td>
+                </tr>
+                <tr>
+                  <td>A count of blocked signals per feature</td>
+                  <td>Powers the counters in the popup and the toolbar badge</td>
+                </tr>
+                <tr>
+                  <td>A capped log of recent block/allow decisions — endpoint, which layer decided, timestamp, with message text removed</td>
+                  <td>So a signal that stops being blocked can be diagnosed after a site change</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            The stored endpoints are ones Stay Unseen saw or blocked on instagram.com, facebook.com and
+            messenger.com. They are capped, overwritten continuously, and readable only by this extension on
+            this device.
+          </p>
+          <p>
+            Resetting the counters in the popup, or uninstalling the extension, erases all of the above.
+          </p>
+        </section>
+
+        <section data-reveal>
+          <h2>Reading request contents</h2>
+          <p>
+            To decide whether a request is a read receipt or a typing notification, Stay Unseen has to look at
+            more than the address: on Instagram and Messenger these signals are sent as GraphQL calls and
+            websocket frames whose addresses are identical to ordinary ones. So the extension inspects the
+            outgoing request body in memory, matches it against a fixed list of patterns, and then either drops
+            it or lets it through.
+          </p>
+          <p>Two consequences worth stating plainly:</p>
+          <ul>
+            <li>
+              On a chat site, outgoing bodies include messages you send. Stay Unseen looks at them only to make
+              that block-or-allow decision, and never keeps or sends them.
+            </li>
+            <li>
+              Before anything is written to the local log described above, the fields holding text you typed
+              are replaced with <code>&lt;user_text&gt;</code>. This is also what stops a message containing the
+              word “typing” from being mistaken for a typing signal and dropped.
+            </li>
+          </ul>
+        </section>
+
+        <section data-reveal>
+          <h2>What it does not do</h2>
+          <ul>
+            <li>It does not have a server, so there is nothing to send data to.</li>
+            <li>It does not use analytics, telemetry, crash reporting, or advertising.</li>
+            <li>
+              It does not transmit your messages, photos, contacts, posts, or account details, and does not
+              store the text of your messages.
+            </li>
+            <li>It does not ask for an account, an email address, or a sign-in.</li>
+            <li>
+              It does not track your browsing. It cannot: it has permission to run on instagram.com,
+              facebook.com and messenger.com only, and no access whatsoever to any other website.
+            </li>
+            <li>
+              It does not sell or share information with third parties, because it does not collect any.
+            </li>
+          </ul>
+        </section>
+
+        <section data-reveal>
+          <h2>What it does on the sites it runs on</h2>
+          <p>
+            On Instagram, Facebook and Messenger only, Stay Unseen stops the specific network requests that
+            report a story view, a message read, or that you are typing. It does this in two ways: by cancelling
+            those requests through the browser's own blocking API, and by intercepting the equivalent calls made
+            by the page's own code. It does not change the pages you are looking at, except for the optional
+            unread-marker preference, which affects only your own view.
+          </p>
+        </section>
+
+        <section data-reveal>
+          <h2>Your control</h2>
+          <p>
+            Every blocking feature has its own switch in the popup and can be turned off at any time; turning
+            one off restores the site's normal behaviour immediately. Removing the extension from your browser's
+            extensions page — <code>chrome://extensions</code>, <code>edge://extensions</code>, or
+            <code>about:addons</code> — stops all of its activity and deletes its stored data.
+          </p>
+        </section>
+
+        <section data-reveal>
+          <h2>Children</h2>
+          <p>
+            Stay Unseen is not directed at children under 13 and collects no information from anyone, including
+            children.
+          </p>
+        </section>
+
+        <section data-reveal>
+          <h2>Changes to this policy</h2>
+          <p>
+            If the extension's data handling changes, this page will be updated and the date at the top revised
+            before the change ships.
+          </p>
+        </section>
+
+        <section data-reveal>
+          <h2>Contact</h2>
+          <p>Questions about this policy: <a href="mailto:hrrpooh@gmail.com">hrrpooh@gmail.com</a></p>
+        </section>
+
+        <section data-reveal>
+          <h2>Affiliation</h2>
+          <p>
+            Stay Unseen is an independent project. It is not affiliated with, endorsed by, or connected to Meta
+            Platforms, Instagram, Facebook, or Microsoft.
+          </p>
+        </section>
       </div>
+    </main>
 
-      <p>
-        The stored endpoints are ones Stay Unseen saw or blocked on instagram.com,
-        facebook.com and messenger.com. They are capped, overwritten continuously, and
-        readable only by this extension on this device.
-      </p>
-      <p>
-        Resetting the counters in the popup, or uninstalling the extension, erases all of
-        the above.
-      </p>
-    </section>
+    <!-- ================= FOOTER ================= -->
+    <footer class="border-t border-white/10 bg-deep/60 px-5 py-10">
+      <div class="mx-auto max-w-6xl space-y-2 text-center font-mono text-[10.5px] text-muted">
+        <p>Stay Unseen v1.1.0 · no server · no analytics · nothing leaves your browser</p>
+        <p>
+          <a class="transition hover:text-ink" href="privacy.html">Privacy policy</a>
+          · Independent project, not affiliated with Meta Platforms, Instagram, Facebook, or Microsoft
+        </p>
+      </div>
+    </footer>
 
-    <section class="reveal">
-      <h2>Reading request contents</h2>
-      <p>
-        To decide whether a request is a read receipt or a typing notification, Stay
-        Unseen has to look at more than the address: on Instagram and Messenger these
-        signals are sent as GraphQL calls and websocket frames whose addresses are
-        identical to ordinary ones. So the extension inspects the outgoing request body
-        in memory, matches it against a fixed list of patterns, and then either drops it
-        or lets it through.
-      </p>
-      <p>Two consequences worth stating plainly:</p>
-      <ul>
-        <li>
-          On a chat site, outgoing bodies include messages you send. Stay Unseen looks at
-          them only to make that block-or-allow decision, and never keeps or sends them.
-        </li>
-        <li>
-          Before anything is written to the local log described above, the fields holding
-          text you typed are replaced with <code>&lt;user_text&gt;</code>. This is also
-          what stops a message containing the word “typing” from being mistaken for a
-          typing signal and dropped.
-        </li>
-      </ul>
-    </section>
-
-    <section class="reveal">
-      <h2>What it does not do</h2>
-      <ul>
-        <li>It does not have a server, so there is nothing to send data to.</li>
-        <li>It does not use analytics, telemetry, crash reporting, or advertising.</li>
-        <li>
-          It does not transmit your messages, photos, contacts, posts, or account
-          details, and does not store the text of your messages.
-        </li>
-        <li>It does not ask for an account, an email address, or a sign-in.</li>
-        <li>
-          It does not track your browsing. It cannot: it has permission to run on
-          instagram.com, facebook.com and messenger.com only, and no access whatsoever to
-          any other website.
-        </li>
-        <li>
-          It does not sell or share information with third parties, because it does not
-          collect any.
-        </li>
-      </ul>
-    </section>
-
-    <section class="reveal">
-      <h2>What it does on the sites it runs on</h2>
-      <p>
-        On Instagram, Facebook and Messenger only, Stay Unseen stops the specific network
-        requests that report a story view, a message read, or that you are typing. It
-        does this in two ways: by cancelling those requests through the browser's own
-        blocking API, and by intercepting the equivalent calls made by the page's own
-        code. It does not change the pages you are looking at, except for the optional
-        unread-marker preference, which affects only your own view.
-      </p>
-    </section>
-
-    <section class="reveal">
-      <h2>Your control</h2>
-      <p>
-        Every blocking feature has its own switch in the popup and can be turned off at
-        any time; turning one off restores the site's normal behaviour immediately.
-        Removing the extension from your browser's extensions page —
-        <code>chrome://extensions</code>, <code>edge://extensions</code>, or
-        <code>about:addons</code> — stops all of its activity and deletes its stored data.
-      </p>
-    </section>
-
-    <section class="reveal">
-      <h2>Children</h2>
-      <p>
-        Stay Unseen is not directed at children under 13 and collects no information from
-        anyone, including children.
-      </p>
-    </section>
-
-    <section class="reveal">
-      <h2>Changes to this policy</h2>
-      <p>
-        If the extension's data handling changes, this page will be updated and the date
-        at the top revised before the change ships.
-      </p>
-    </section>
-
-    <section class="reveal">
-      <h2>Contact</h2>
-      <p>Questions about this policy: <a href="mailto:hrrpooh@gmail.com">hrrpooh@gmail.com</a></p>
-    </section>
-
-    <section class="reveal">
-      <h2>Affiliation</h2>
-      <p>
-        Stay Unseen is an independent project. It is not affiliated with, endorsed by, or
-        connected to Meta Platforms, Instagram, Facebook, or Microsoft.
-      </p>
-    </section>
-  </article>
-</main>
-
-<footer class="site-footer">
-  <div class="wrap footer-in">
-    <span>Stay Unseen v1.1.0 · no server · no analytics · nothing leaves your browser</span>
-    <span><a href="index.html">Back to the extension</a></span>
-  </div>
-</footer>
-
-<script src="script.js" defer></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js" integrity="sha384-uTYyvsSSUZeaPhb5RbKlQa0zY/WpX/QHfvg2mczXyBQOpkWPEDy9lczyp+w7SKXu" crossorigin="anonymous"></script>
+    <script src="assets/app.js"></script>
+  </body>
 </html>
