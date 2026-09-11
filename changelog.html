@@ -69,36 +69,57 @@
       </nav>
     </header>
 
-    <main id="main" class="relative z-10 px-5 pb-20 pt-32 sm:pt-40">
-      <div class="prose mx-auto">
-        <p class="eyebrow">Changelog</p>
-        <h1>What changed,<span class="grad">version by version.</span></h1>
-        <p class="updated">Current release: 1.1.0</p>
+    <main id="main" class="relative z-10 px-5 pb-24 pt-32 sm:pt-40">
+      <div class="mx-auto max-w-6xl">
+        <header class="prose doc-head" data-reveal>
+          <p class="eyebrow">Changelog</p>
+          <h1>What changed,<span class="grad">version by version.</span></h1>
+          <p class="updated">Current release: 1.1.0</p>
+        </header>
 
-        <section data-reveal>
-          <h2>1.1.0</h2>
-          <p class="updated">Current release</p>
+        <div class="doc-grid mt-14">
+          <aside class="lg:sticky lg:top-28 lg:self-start" data-reveal>
+            <p class="toc-label">Releases</p>
+            <nav class="toc" aria-label="Releases">
+              <a href="#v110">1.1.0 — current</a>
+              <a href="#v105">1.0.5</a>
+            </nav>
+            <div class="mt-6 rounded-2xl border border-white/10 bg-panel/50 p-4">
+              <span class="inline-flex items-center gap-2 rounded-full border border-typing/30 bg-typing/10 px-3 py-1 font-mono text-[10px] text-typing">
+                <span class="h-1.5 w-1.5 rounded-full bg-typing"></span>v1.1.0
+              </span>
+              <p class="mt-3 text-xs leading-relaxed text-muted">Install the current release from your browser's own store.</p>
+              <a href="index.html#install" class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-shield transition hover:text-ink">Install <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
+            </div>
+          </aside>
 
-          <div class="cl-group">New</div>
-          <ul>
-            <li>Fresh new popup design with live counters for everything blocked.</li>
-            <li>Status now shows where you're protected: <b>“Active on Facebook”</b>, <b>“Active on Instagram”</b>, or both.</li>
-            <li><b>Rate Stay Unseen</b> link that opens your store's review page.</li>
-          </ul>
+          <div class="prose" data-reveal>
+            <section id="v110">
+              <h2>1.1.0</h2>
+              <p class="updated">Current release</p>
 
-          <div class="cl-group">Fixed</div>
-          <ul>
-            <li>Chats now load reliably on Facebook and Messenger — no more <b>“Couldn't load chats”</b> errors.</li>
-            <li>Group chat messages no longer get stuck on <b>“Sending”</b>.</li>
-            <li>Instagram: sender names stay bold after you read a DM, and the unread marker appears right away without reloading the page.</li>
-          </ul>
-        </section>
+              <div class="cl-group">New</div>
+              <ul>
+                <li>Fresh new popup design with live counters for everything blocked.</li>
+                <li>Status now shows where you're protected: <b>“Active on Facebook”</b>, <b>“Active on Instagram”</b>, or both.</li>
+                <li><b>Rate Stay Unseen</b> link that opens your store's review page.</li>
+              </ul>
 
-        <section data-reveal>
-          <h2>1.0.5</h2>
-          <p class="updated">Previous release</p>
-          <p>The original release: six blocking switches, per-feature counters, and keep-unread markers.</p>
-        </section>
+              <div class="cl-group">Fixed</div>
+              <ul>
+                <li>Chats now load reliably on Facebook and Messenger — no more <b>“Couldn't load chats”</b> errors.</li>
+                <li>Group chat messages no longer get stuck on <b>“Sending”</b>.</li>
+                <li>Instagram: sender names stay bold after you read a DM, and the unread marker appears right away without reloading the page.</li>
+              </ul>
+            </section>
+
+            <section id="v105">
+              <h2>1.0.5</h2>
+              <p class="updated">Previous release</p>
+              <p>The original release: six blocking switches, per-feature counters, and keep-unread markers.</p>
+            </section>
+          </div>
+        </div>
       </div>
     </main>
 

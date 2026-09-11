@@ -72,18 +72,42 @@
       </nav>
     </header>
 
-    <main id="main" class="relative z-10 px-5 pb-20 pt-32 sm:pt-40">
-      <div class="prose mx-auto">
-        <p class="eyebrow">Privacy policy</p>
-        <h1>No server.<span class="grad">Nothing collected.</span></h1>
-        <p class="updated">Last updated 7 September 2026 · applies to Stay Unseen 1.1.0</p>
+    <main id="main" class="relative z-10 px-5 pb-24 pt-32 sm:pt-40">
+      <div class="mx-auto max-w-6xl">
+        <header class="prose doc-head" data-reveal>
+          <p class="eyebrow">Privacy policy</p>
+          <h1>No server.<span class="grad">Nothing collected.</span></h1>
+          <p class="updated">Last updated 7 September 2026 · applies to Stay Unseen 1.1.0</p>
+        </header>
 
+        <div class="doc-grid mt-14">
+          <aside class="lg:sticky lg:top-28 lg:self-start" data-reveal>
+            <p class="toc-label">On this page</p>
+            <nav class="toc" aria-label="Sections">
+              <a href="#short">The short version</a>
+              <a href="#stores">What it stores on your device</a>
+              <a href="#reading">Reading request contents</a>
+              <a href="#not">What it does not do</a>
+              <a href="#sites">What it does on the sites it runs on</a>
+              <a href="#control">Your control</a>
+              <a href="#children">Children</a>
+              <a href="#changes">Changes to this policy</a>
+              <a href="#contact">Contact</a>
+              <a href="#affiliation">Affiliation</a>
+            </nav>
+            <div class="mt-6 rounded-2xl border border-white/10 bg-panel/50 p-4">
+              <p class="text-xs leading-relaxed text-muted">Questions about this policy?</p>
+              <a href="mailto:hrrpooh@gmail.com" class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-shield transition hover:text-ink"><i data-lucide="mail" class="h-4 w-4"></i>hrrpooh@gmail.com</a>
+            </div>
+          </aside>
+
+          <div class="prose" data-reveal>
         <p>
           Stay Unseen is a browser extension that stops Instagram, Facebook and Messenger from reporting that
           you have viewed a story, read a message, or started typing a reply.
         </p>
 
-        <section data-reveal>
+        <section id="short">
           <h2>The short version</h2>
           <p>
             Stay Unseen has no server. It does not collect, transmit, sell, or share any information about you
@@ -92,7 +116,7 @@
           </p>
         </section>
 
-        <section data-reveal>
+        <section id="stores">
           <h2>What it stores on your device</h2>
           <p>
             All of the following is kept in the browser's local extension storage
@@ -131,7 +155,7 @@
           </p>
         </section>
 
-        <section data-reveal>
+        <section id="reading">
           <h2>Reading request contents</h2>
           <p>
             To decide whether a request is a read receipt or a typing notification, Stay Unseen has to look at
@@ -154,7 +178,7 @@
           </ul>
         </section>
 
-        <section data-reveal>
+        <section id="not">
           <h2>What it does not do</h2>
           <ul>
             <li>It does not have a server, so there is nothing to send data to.</li>
@@ -174,7 +198,7 @@
           </ul>
         </section>
 
-        <section data-reveal>
+        <section id="sites">
           <h2>What it does on the sites it runs on</h2>
           <p>
             On Instagram, Facebook and Messenger only, Stay Unseen stops the specific network requests that
@@ -185,7 +209,7 @@
           </p>
         </section>
 
-        <section data-reveal>
+        <section id="control">
           <h2>Your control</h2>
           <p>
             Every blocking feature has its own switch in the popup and can be turned off at any time; turning
@@ -195,7 +219,7 @@
           </p>
         </section>
 
-        <section data-reveal>
+        <section id="children">
           <h2>Children</h2>
           <p>
             Stay Unseen is not directed at children under 13 and collects no information from anyone, including
@@ -203,7 +227,7 @@
           </p>
         </section>
 
-        <section data-reveal>
+        <section id="changes">
           <h2>Changes to this policy</h2>
           <p>
             If the extension's data handling changes, this page will be updated and the date at the top revised
@@ -211,18 +235,20 @@
           </p>
         </section>
 
-        <section data-reveal>
+        <section id="contact">
           <h2>Contact</h2>
           <p>Questions about this policy: <a href="mailto:hrrpooh@gmail.com">hrrpooh@gmail.com</a></p>
         </section>
 
-        <section data-reveal>
+        <section id="affiliation">
           <h2>Affiliation</h2>
           <p>
             Stay Unseen is an independent project. It is not affiliated with, endorsed by, or connected to Meta
             Platforms, Instagram, Facebook, or Microsoft.
           </p>
         </section>
+          </div>
+        </div>
       </div>
     </main>
 
